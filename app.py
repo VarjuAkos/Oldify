@@ -4,6 +4,8 @@ import numpy as np
 def load_and_resize_image(file_path, max_size=1000):
     """Load an image and resize it to have a maximum dimension of max_size."""
     img = cv2.imread(file_path)
+    if img is None:
+        raise FileNotFoundError(f"Could not load image from {file_path}")
     height, width = img.shape[:2]
     if max(height, width) > max_size:
         scale = max_size / max(height, width)
@@ -119,6 +121,7 @@ def process_image(input_path, output_path, apply_sepia_filter=False, max_size=10
     print(f"Processed image saved to {output_path}")
 
 if __name__ == "__main__":
-    input_image = r".\images\input.jpg"  # Use raw string
-    output_image = r".\images\output.jpg"  # Use raw string
+    # Use forward slashes for cross-platform compatibility
+    input_image = "./images/IMG_8348.jpeg"
+    output_image = "./images/output_IMG_8348.jpeg"
     process_image(input_image, output_image, apply_sepia_filter=True, max_size=1000)
